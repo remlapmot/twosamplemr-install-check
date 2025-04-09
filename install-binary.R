@@ -25,4 +25,4 @@ if (Sys.info()['sysname'] != "Linux") {
     )
   )
 }
-install.packages("TwoSampleMR")
+install.packages("TwoSampleMR", dependencies = TRUE)
