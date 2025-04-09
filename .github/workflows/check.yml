@@ -57,12 +57,12 @@ jobs:
         shell: bash
         run: echo 'options(pkg.sysreqs_db_update_timeout = as.difftime(59, units = "secs"))' >> ~/.Rprofile
 
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: >
-            any::rcmdcheck, MendelianRandomization=?ignore-before-r=4.4.0
-          needs: check
-          upgrade: 'TRUE'
+      # - uses: r-lib/actions/setup-r-dependencies@v2
+      #   with:
+      #     extra-packages: >
+      #       any::rcmdcheck, MendelianRandomization=?ignore-before-r=4.4.0
+      #     needs: check
+      #     upgrade: 'TRUE'
           
       - name: Check TwoSampleMR binary installation
         run: Rscript install-binary.R
