@@ -1,28 +1,25 @@
-if (Sys.info()['sysname'] != "Linux") {
-  options(
-    repos = c(
-      CRAN = "https://cloud.r-project.org",
-      universe = "https://mrcieu.r-universe.dev"
-    )
+install.packages(
+  "pak",
+  repos = sprintf(
+    "https://r-lib.github.io/p/pak/stable/%s/%s/%s",
+    .Platform$pkgType,
+    R.Version()$os,
+    R.Version()$arch
   )
-} else if (Sys.info()['machine'] != "arm64") {
-  # Installation code for Ubuntu Noble Numbat users running R in the Terminal
-  options(
-    HTTPUserAgent = sprintf(
-      "R/%s R (%s)",
-      getRversion(),
-      paste(
-        getRversion(),
-        R.version["platform"],
-        R.version["arch"],
-        R.version["os"]
-      )
-    ),
-    repos = c(
-      'https://mrcieu.r-universe.dev/bin/linux/noble/4.4/',
-      'https://p3m.dev/cran/__linux__/noble/latest',
-      'https://cloud.r-project.org'
-    )
-  )
+)
+
+if (Sys.info()["sysname"] != "Linux") {
+    # Windows and macOS
+    pak::repo_add(CRAN = "https://cloud.r-project.org")
+    pak::repo_add(universe = "https://mrcieu.r-universe.dev")
+} else if (Sys.info()["machine"] != "arm64") {
+    # Linux x86_64
+    pak::repo_add(CRAN = "https://mrcieu.r-universe.dev/bin/linux/noble/4.4/")
+    pak::repo_add(universe = "https://p3m.dev/cran/__linux__/noble/latest")
+} else if (Sys.info()["machine"] != "arm64") {
+    # Linux arm64
+    pak::repo_add(CRAN = "https://cloud.r-project.org")
+    pak::repo_add(universe = "https://mrcieu.r-universe.dev")
 }
-install.packages("TwoSampleMR", dependencies = TRUE)
+
+pak::pkg_install("TwoSampleMR", dependencies = TRUE, upgrade = TRUE)
