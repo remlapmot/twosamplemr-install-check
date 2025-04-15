@@ -13,16 +13,12 @@ permissions: read-all
 
 jobs:
   R-CMD-check:
-    runs-on: ${{ matrix.config.os }}
+    runs-on: windows-11-arm
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }})
+    name: windows-11-arm
 
     strategy:
       fail-fast: false
-      # max-parallel: 2
-      matrix:
-        config:
-          - {os: windows-11-arm, r: '4.5.0', rspm: 'no' }
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -37,7 +33,6 @@ jobs:
           $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
-          # Get-ChildItem -Path "C:\Program Files\R-aarch64" -Recurse
           $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
           $arguments = "-e", "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)"
           & $rscript $arguments
