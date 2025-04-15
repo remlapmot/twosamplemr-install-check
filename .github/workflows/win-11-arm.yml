@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [main, master]
+    # branches: [main, master]
   pull_request:
     branches: [main, master]
   workflow_dispatch:
@@ -31,13 +31,15 @@ jobs:
     steps:
       - name: Install R and RTools for Windows on ARM and install TwoSampleMR
         run: |
-          $url = "https://www.r-project.org/nosvn/winutf8/aarch64/R-4-signed/R-4.5.0-aarch64.exe"
-          Invoke-WebRequest -Uri "$url" -OutFile R-4.5.0-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
-          Start-Process -FilePath R-4.5.0-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
-          $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
-          Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
-          Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
+          Get-ChildItem -Path "C:\"
+          Get-ChildItem -Path "C:\Program Files\R (x86)"
+          # $url = "https://www.r-project.org/nosvn/winutf8/aarch64/R-4-signed/R-4.5.0-aarch64.exe"
+          # Invoke-WebRequest -Uri "$url" -OutFile R-4.5.0-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
+          # Start-Process -FilePath R-4.5.0-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
+          # $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
+          # Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
+          # Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
           # Get-ChildItem -Path "C:\Program Files\R-aarch64" -Recurse
-          $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
-          $arguments = "-e", "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)"
-          & $rscript $arguments
+          # $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
+          # $arguments = "-e", "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)"
+          # & $rscript $arguments
