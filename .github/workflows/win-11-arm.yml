@@ -33,13 +33,12 @@ jobs:
 
       - name: Install R and RTools for Windows on ARM and install TwoSampleMR
         run: |
-          Get-ComputerInfo
           mkdir temp
           cd temp
           $url = "https://www.r-project.org/nosvn/winutf8/aarch64/R-4-signed/R-4.5.0-aarch64.exe"
           Invoke-WebRequest -Uri "$url" -OutFile R-4.5.0-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
-          Start-Process -FilePath R-4.5.0-aarch64.exe -ArgumentList "/install /quiet /norestart"
+          Start-Process -FilePath R-4.5.0-aarch64.exe -ArgumentList "/install /norestart"
           $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
-          Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /quiet /norestart"
-          C:\\Program^ Files\\R\\R-4.5.0\\bin\\Rscript.exe -e "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)"
+          Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart"
+          Invoke-Expression "C:\\Program Files\\R\\R-4.5.0\\bin\\Rscript.exe -e \"print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)\""
