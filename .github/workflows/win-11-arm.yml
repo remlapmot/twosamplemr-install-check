@@ -41,5 +41,6 @@ jobs:
           $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart"
-          Get-ChildItem -Path "C:\a\rtools45\" -Recurse
+          Get-ChildItem -Path "C:\a\twosamplemr-install-check\twosamplemr-install-check" -Recurse
+          # Get-ChildItem -Path "C:\a\rtools45\" -Recurse
           # Invoke-Expression "C:\\Program Files\\R\\R-4.5.0\\bin\\Rscript.exe -e "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)\""
