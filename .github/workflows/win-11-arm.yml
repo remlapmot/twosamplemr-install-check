@@ -31,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install R and RTools for Windows on ARM
+      - name: Install R and RTools for Windows on ARM and install TwoSampleMR
         run: |
           mkdir temp
           cd temp
@@ -41,4 +41,4 @@ jobs:
           $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /quiet /norestart"
-          Rscript -e "install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev'))"
+          Rscript -e "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)"
