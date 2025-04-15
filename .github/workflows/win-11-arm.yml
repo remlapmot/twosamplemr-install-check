@@ -39,5 +39,5 @@ jobs:
           Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
           # Get-ChildItem -Path "C:\Program Files\R-aarch64" -Recurse
           $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
-          $arguments = "-e", "print(R.version); install.packages('TwoSampleMR', repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)"
+          $arguments = "-e", "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)"
           & $rscript $arguments
