@@ -41,5 +41,4 @@ jobs:
           $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /quiet /norestart"
-          winget install pandoc
           Rscript -e "install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev'))"
