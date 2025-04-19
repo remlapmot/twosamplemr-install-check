@@ -27,4 +27,4 @@ if (Sys.info()["sysname"] != "Linux") {
 
 library(TwoSampleMR)
 
-sessioninfo::session_info()
+sessioninfo::session_info(pkgs = "installed")
