@@ -34,5 +34,5 @@ jobs:
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
           $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
-          $arguments = "-e", "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR)"
+          $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info()"
           & $rscript $arguments
