@@ -58,7 +58,12 @@ jobs:
       - name: R CMD check
         run: |
           git clone https://github.com/MRCIEU/TwoSampleMR.git
-          cd TwoSampleMR
-          $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
-          $arguments = "-e", "remove.packages('TwoSampleMR'); install.packages('devtools', repos = c('https://cloud.r-project.org/')); devtools::check()"
-          & $rscript $arguments
+          # cd TwoSampleMR
+          # $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
+          # $arguments = "-e", "remove.packages('TwoSampleMR'); install.packages('devtools', repos = c('https://cloud.r-project.org/')); devtools::check()"
+          # & $rscript $arguments
+          $rexe = "C:\Program Files\R-aarch64\R-4.5.0\bin\R.exe"
+          $cmdbuild = "CMD build TwoSampleMR"
+          & $rexe $cmdbuild
+          $cmdcheck = "CMD check TwoSampleMR_0.6.14.tar.gz"
+          & $rexe $cmdcheck
