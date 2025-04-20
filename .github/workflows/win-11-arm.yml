@@ -36,3 +36,8 @@ jobs:
           $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
           $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
           & $rscript $arguments
+
+      - name: Checking arch and os
+        if: runner.os == "Windows" && runner.arch == "ARM"
+        shell: bash
+        run: echo 'Hello, World!'
