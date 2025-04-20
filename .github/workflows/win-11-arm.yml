@@ -38,6 +38,6 @@ jobs:
           & $rscript $arguments
 
       - name: Checking arch and os
-        if: runner.os == "Windows" && runner.arch == "ARM"
+        if: runner.os == 'Windows' && runner.arch == 'ARM'
         shell: bash
         run: echo 'Hello, World!'
