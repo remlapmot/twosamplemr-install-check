@@ -27,18 +27,19 @@ jobs:
     steps:
       - name: Install R and RTools for Windows on ARM and install TwoSampleMR
         run: |
-          # $url = "https://www.r-project.org/nosvn/winutf8/aarch64/R-4-signed/R-4.5.0-aarch64.exe"
-          # Invoke-WebRequest -Uri "$url" -OutFile R-4.5.0-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
-          # Start-Process -FilePath R-4.5.0-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
-          # $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
-          # Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
-          # Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
-          # $env:Path
-          Get-ChildItem C:\rtools44\
-          Get-ChildItem C:\rtools44\usr
-          Get-ChildItem C:\rtools44\usr\bin
+          $url = "https://www.r-project.org/nosvn/winutf8/aarch64/R-4-signed/R-4.5.0-aarch64.exe"
+          Invoke-WebRequest -Uri "$url" -OutFile R-4.5.0-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
+          Start-Process -FilePath R-4.5.0-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
+          $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
+          Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
+          Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
           Get-ChildItem "C:\"
-          Get-ChildItem "C:\Program Files (x86)"
+          $env:Path
+          # Get-ChildItem C:\rtools44\
+          # Get-ChildItem C:\rtools44\usr
+          # Get-ChildItem C:\rtools44\usr\bin
+          # Get-ChildItem "C:\"
+          # Get-ChildItem "C:\Program Files (x86)"
           # $arrPath = $env:Path -split ';'
           # $addPath1 = "C:\rtools45\usr\bin"
           # $addPath2 = "C:\Program Files\R-aarch64\R-4.5.0\bin"
