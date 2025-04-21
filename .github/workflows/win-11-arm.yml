@@ -35,22 +35,23 @@ jobs:
           $ENV:PATH = "C:\Program Files\R-aarch64\R-4.5.0\bin;C:\rtools45-aarch64\usr\bin;$ENV:PATH"
           
           choco install pandoc
-          choco install tinytex
 
           $rscript = "Rscript"
-          $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
+          # $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
+          $arguments = "-e", "install.packages('tinytex', repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex()"
           & $rscript $arguments
+          $env:path
 
           # R CMD check
-          git clone https://github.com/MRCIEU/TwoSampleMR.git
-          $rscript = "Rscript"
-          $args = "-e", "remove.packages('TwoSampleMR')"
-          & $rscript $args      
-          $rcmd = "Rcmd"
-          $buildargs = "build", "--no-manual", "--no-build-vignettes", "TwoSampleMR"
-          & $rcmd $buildargs
-          $checkargs = "check", "--no-manual", "--no-vignettes", "TwoSampleMR_0.6.14.tar.gz"
-          & $rcmd $checkargs
+          # git clone https://github.com/MRCIEU/TwoSampleMR.git
+          # $rscript = "Rscript"
+          # $args = "-e", "remove.packages('TwoSampleMR')"
+          # & $rscript $args      
+          # $rcmd = "Rcmd"
+          # $buildargs = "build", "--no-manual", "--no-build-vignettes", "TwoSampleMR"
+          # & $rcmd $buildargs
+          # $checkargs = "check", "--no-manual", "--no-vignettes", "TwoSampleMR_0.6.14.tar.gz"
+          # & $rcmd $checkargs
 
       # - name: Checking arch and os
       #   if: runner.os == 'Windows' && runner.arch == 'ARM64'
