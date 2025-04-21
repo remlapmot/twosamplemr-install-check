@@ -37,16 +37,14 @@ jobs:
           choco install pandoc
 
           $rscript = "Rscript"
-          # $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
-          $arguments = "-e", "install.packages('tinytex', repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex()"
+          $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
           & $rscript $arguments
-          $env:path
 
           # R CMD check
-          # git clone https://github.com/MRCIEU/TwoSampleMR.git
-          # $rscript = "Rscript"
-          # $args = "-e", "remove.packages('TwoSampleMR')"
-          # & $rscript $args      
+          git clone https://github.com/MRCIEU/TwoSampleMR.git
+          $rscript = "Rscript"
+          $args = "-e", "remove.packages('TwoSampleMR'); install.packages('devtools', repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); devtools::check()"
+          & $rscript $args
           # $rcmd = "Rcmd"
           # $buildargs = "build", "--no-manual", "--no-build-vignettes", "TwoSampleMR"
           # & $rcmd $buildargs
