@@ -30,38 +30,38 @@ jobs:
           $url = "https://www.r-project.org/nosvn/winutf8/aarch64/R-4-signed/R-4.5.0-aarch64.exe"
           Invoke-WebRequest -Uri "$url" -OutFile R-4.5.0-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath R-4.5.0-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
+
           $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES /DIR=C:\rtools45" -NoNewWindow -Wait
           
           $ENV:PATH = "C:\Program Files\R-aarch64\R-4.5.0\bin;C:\rtools45\usr\bin;$ENV:PATH"
-          $env:path
-          $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
-          
-          where R.exe
-          where Rcmd.exe
           
           choco install pandoc
-          
-          where pandoc.exe
-          
-          # $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
-          # & $rscript $arguments
+
+          $rscript = "Rscript"
+          $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
+          & $rscript $arguments
 
       # - name: Checking arch and os
       #   if: runner.os == 'Windows' && runner.arch == 'ARM64'
       #   shell: bash
       #   run: echo 'Hello, World!'
 
-      # - name: R CMD check
-      #   run: |
-      #     git clone https://github.com/MRCIEU/TwoSampleMR.git
+      - name: R CMD check
+        run: |
+          git clone https://github.com/MRCIEU/TwoSampleMR.git
+          $rscript = "Rscript"
+          $args = "-e", "remove.packages('TwoSampleMR')"
+          & $rscript $args      
+          $rcmdexe = "Rcmd"
+          $cmdbuild = "build TwoSampleMR"
+          & $rcmdexe $cmdbuild
+          $cmdcheck = "check TwoSampleMR_0.6.14.tar.gz"
+          & $rcmdexe $cmdcheck
+
       #     # cd TwoSampleMR
       #     # $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
       #     # $arguments = "-e", "remove.packages('TwoSampleMR'); install.packages('devtools', repos = c('https://cloud.r-project.org/')); devtools::check()"
       #     # & $rscript $arguments
       #     $rcmdexe = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rcmd.exe"
-      #     $cmdbuild = "build TwoSampleMR"
-      #     & $rcmdexe $cmdbuild
-      #     $cmdcheck = "check TwoSampleMR_0.6.14.tar.gz"
-      #     & $rcmdexe $cmdcheck
