@@ -41,7 +41,7 @@ jobs:
           where R.exe
           where Rcmd.exe
           
-          winget install -e --id JohnMacFarlane.Pandoc
+          choco install pandoc
           
           where pandoc.exe
           
