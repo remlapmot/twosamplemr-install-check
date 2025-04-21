@@ -17,9 +17,6 @@ jobs:
 
     name: windows-11-arm
 
-    strategy:
-      fail-fast: false
-
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
