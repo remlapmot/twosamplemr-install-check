@@ -38,6 +38,7 @@ jobs:
           $ENV:PATH = "C:\Program Files\R-aarch64\R-4.5.0\bin;C:\rtools45-aarch64\usr\bin;$ENV:PATH"
           
           choco install pandoc
+          choco install tinytex
 
           $rscript = "Rscript"
           $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
