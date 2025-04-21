@@ -66,10 +66,10 @@ jobs:
           & $rscript $args
           $rcmd = "Rcmd"
           # $buildargs = "build", "--no-manual", "--no-build-vignettes", "TwoSampleMR"
-          $buildargs = "build", "--no-manual", "--no-build-vignettes", "bpbounds"
+          $buildargs = "build", "bpbounds"
           & $rcmd $buildargs
           # $checkargs = "check", "--no-manual", "--no-vignettes", "TwoSampleMR_0.6.14.tar.gz"
-          $checkargs = "check", "--no-manual", "--no-vignettes", "bpbounds_0.1.6.9000.tar.gz"
+          $checkargs = "check", "bpbounds_0.1.6.9000.tar.gz"
           & $rcmd $checkargs
 
       # - name: Checking arch and os
