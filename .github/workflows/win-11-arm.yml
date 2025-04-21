@@ -45,7 +45,7 @@ jobs:
 
           $env:path
           
-          $ENV:PATH = "C:\Users\runneradmin\AppData\TinyTeX\bin\windows;$ENV:PATH"
+          $ENV:PATH = "C:\Users\runneradmin\AppData\Roaming\TinyTeX\bin\windows;$ENV:PATH"
           
           where pdflatex
 
