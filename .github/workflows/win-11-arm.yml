@@ -40,16 +40,16 @@ jobs:
           # $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
           # & $rscript $arguments
 
-          $args = "-e", "install.packages('tinytex', repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex()"
+          $args = "-e", "install.packages(c('tinytex', 'bpbounds'), repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex()"
           & $rscript $args
 
           $env:path
           
-          $ENV:PATH = "%APPDATA%\TinyTeX\bin;$ENV:PATH"
+          $ENV:PATH = "C:\Users\runneradmin\AppData\TinyTeX\bin\windows;$ENV:PATH"
           
           where pdflatex
 
-          # git clone https://github.com/remlapmot/bpbounds.git
+          git clone https://github.com/remlapmot/bpbounds.git
 
           # cd bpbounds
           # bash -c \"echo "PATH=C:\\rtools45-aarch64\\usr\\bin:$PATH" > .Renviron\"
@@ -60,14 +60,17 @@ jobs:
           # R CMD check
           # git clone https://github.com/MRCIEU/TwoSampleMR.git
           # cd TwoSampleMR
-          # $rscript = "Rscript"
-          # $args = "-e", "remove.packages('TwoSampleMR'); install.packages('devtools', repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); devtools::check()"
-          # & $rscript $args
-          # $rcmd = "Rcmd"
+          $rscript = "Rscript"
+          $args = "-e", "remove.packages('bpbounds')"
+          # # $checkargs = "check", "--no-manual", "--no-vignettes", "TwoSampleMR_0.6.14.tar.gz"
+          & $rscript $args
+          $rcmd = "Rcmd"
           # $buildargs = "build", "--no-manual", "--no-build-vignettes", "TwoSampleMR"
-          # & $rcmd $buildargs
+          $buildargs = "build", "--no-manual", "--no-build-vignettes", "bpbounds"
+          & $rcmd $buildargs
           # $checkargs = "check", "--no-manual", "--no-vignettes", "TwoSampleMR_0.6.14.tar.gz"
-          # & $rcmd $checkargs
+          $checkargs = "check", "--no-manual", "--no-vignettes", "bpbounds_0.1.6.9000.tar.gz"
+          & $rcmd $checkargs
 
       # - name: Checking arch and os
       #   if: runner.os == 'Windows' && runner.arch == 'ARM64'
