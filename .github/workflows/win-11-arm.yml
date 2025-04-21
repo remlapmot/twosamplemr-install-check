@@ -40,13 +40,22 @@ jobs:
           # $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
           # & $rscript $arguments
 
-          git clone https://github.com/remlapmot/bpbounds.git
-
-          cd bpbounds
-          bash -c "echo 'PATH=C:\\rtools45-aarch64\\usr\\bin:$PATH' > .Renviron"
-          $args = "-e", "print(Sys.getenv()); install.packages('devtools', repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); devtools::check()"
-
+          $args = "-e", "install.packages('tinytex', repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex()"
           & $rscript $args
+
+          $env:path
+          
+          $ENV:PATH = "%APPDATA%\TinyTeX\bin;$ENV:PATH"
+          
+          where pdflatex
+
+          # git clone https://github.com/remlapmot/bpbounds.git
+
+          # cd bpbounds
+          # bash -c \"echo "PATH=C:\\rtools45-aarch64\\usr\\bin:$PATH" > .Renviron\"
+          # $args = "-e", "print(Sys.getenv()); install.packages('devtools', repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); devtools::check()"
+
+          # & $rscript $args
 
           # R CMD check
           # git clone https://github.com/MRCIEU/TwoSampleMR.git
