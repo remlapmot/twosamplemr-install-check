@@ -52,7 +52,7 @@ jobs:
           # $arguments = "-e", "remove.packages('TwoSampleMR'); install.packages('devtools', repos = c('https://cloud.r-project.org/')); devtools::check()"
           # & $rscript $arguments
           $rexe = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rcmd.exe"
-          $cmdbuild = "build TwoSampleMR"
+          $cmdbuild = "BUILD TwoSampleMR"
           & $rexe $cmdbuild
-          $cmdcheck = "check TwoSampleMR_0.6.14.tar.gz"
+          $cmdcheck = "CHECK TwoSampleMR_0.6.14.tar.gz"
           & $rexe $cmdcheck
