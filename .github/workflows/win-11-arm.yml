@@ -33,9 +33,9 @@ jobs:
 
           $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6536-6492.exe"
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64-6536-6492.exe -UseBasicParsing -UserAgent "NativeHost"
-          Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES /DIR=C:\rtools45" -NoNewWindow -Wait
+          Start-Process -FilePath rtools45-aarch64-6536-6492.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
           
-          $ENV:PATH = "C:\Program Files\R-aarch64\R-4.5.0\bin;C:\rtools45\usr\bin;$ENV:PATH"
+          $ENV:PATH = "C:\Program Files\R-aarch64\R-4.5.0\bin;C:\rtools45-aarch64\usr\bin;$ENV:PATH"
           
           choco install pandoc
 
@@ -54,11 +54,11 @@ jobs:
           $rscript = "Rscript"
           $args = "-e", "remove.packages('TwoSampleMR')"
           & $rscript $args      
-          $rcmdexe = "Rcmd"
-          $cmdbuild = "build TwoSampleMR"
-          & $rcmdexe $cmdbuild
-          $cmdcheck = "check TwoSampleMR_0.6.14.tar.gz"
-          & $rcmdexe $cmdcheck
+          $rcmd = "Rcmd"
+          $buildargs = "build", "TwoSampleMR"
+          & $rcmd $buildargs
+          $checkargs = "check", "TwoSampleMR_0.6.14.tar.gz"
+          & $rcmd $checkargs
 
       #     # cd TwoSampleMR
       #     # $rscript = "C:\Program Files\R-aarch64\R-4.5.0\bin\Rscript.exe"
