@@ -5,7 +5,7 @@ on:
     branches: [main, master]
   workflow_dispatch:
   schedule:
-    - cron: '31 6 * * *' # run everyday
+    - cron: '31 6 * * TUE' # run on Tuesdays at 6:31 UTC
 
 name: Check-install-win-11-arm
 
