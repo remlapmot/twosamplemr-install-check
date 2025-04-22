@@ -40,7 +40,7 @@ jobs:
           # $arguments = "-e", "print(R.version); install.packages(c('TwoSampleMR', 'sessioninfo'), dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); sessioninfo::session_info(pkgs = 'installed')"
           # & $rscript $arguments
 
-          $args = "-e", "install.packages(c('tinytex'), repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex()"
+          $args = "-e", "install.packages(c('tinytex'), repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); tinytex::tlmgr_install(c("makeindex", "upquote", "inconsolata"))"
           & $rscript $args
 
           $args = "-e", "install.packages(c('bpbounds'), dependencies = TRUE, repos = 'https://cloud.r-project.org/')"
