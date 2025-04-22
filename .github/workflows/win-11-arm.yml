@@ -63,5 +63,5 @@ jobs:
           $buildargs = "build", "TwoSampleMR"
           & $rcmd $buildargs
 
-          $checkargs = "check", "TwoSampleMR_0.6.14.tar.gz"
+          $checkargs = "check", "--as-cran", "TwoSampleMR_0.6.14.tar.gz"
           & $rcmd $checkargs
