@@ -54,7 +54,7 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: ${{ matrix.config.rspm || 'true' }}
-          rtools-version: ${{ matrix.config.rtools-version || '' }}
+          rtools-version: ${{ matrix.config.rtools-version }}
 
       - name: Set pak options
         shell: bash
