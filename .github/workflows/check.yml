@@ -58,7 +58,7 @@ jobs:
 
       - name: Set pak options
         shell: bash
-        run: echo 'options(pkg.sysreqs_db_update_timeout = as.difftime(59, units = "secs"))' >> ~/.Rprofile
+        run: echo 'options(pkg.sysreqs_db_update_timeout = as.difftime(180, units = "secs"))' >> ~/.Rprofile
           
       - name: Check TwoSampleMR binary installation
         run: Rscript install-binary.R
