@@ -28,16 +28,16 @@ jobs:
       # max-parallel: 2
       matrix:
         config:
-          - {os: macos-latest,   r: 'release'}
+          - {os: macos-latest,   r: 'release', rtools-version: '45'}
           - {os: windows-latest, r: 'release', rtools-version: '45'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
-          - {os: ubuntu-latest,   r: 'oldrel-2'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: '4.3.2'}
-          - {os: macos-15, r: 'release'}
-          - {os: macos-13, r: 'release'}
-          - {os: ubuntu-24.04-arm, r: 'release', rspm: 'no' }
+          - {os: ubuntu-latest,   r: 'release', rtools-version: '45'}
+          - {os: ubuntu-latest,   r: 'oldrel-1', rtools-version: '44'}
+          - {os: ubuntu-latest,   r: 'oldrel-2', rtools-version: '43'}
+          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release', rtools-version: '45'}
+          - {os: ubuntu-latest,   r: '4.3.2', rtools-version: '43'}
+          - {os: macos-15, r: 'release', rtools-version: '45'}
+          - {os: macos-13, r: 'release', rtools-version: '45'}
+          - {os: ubuntu-24.04-arm, r: 'release', rspm: 'no', rtools-version: '45' }
           # - {os: windows-11-arm, r: 'release', rspm: 'no' }
 
     env:
@@ -54,7 +54,7 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: ${{ matrix.config.rspm || 'true' }}
-          rtools-version: ${{ matrix.config.rtools-version || "''" }}
+          rtools-version: ${{ matrix.config.rtools-version || '' }}
 
       - name: Set pak options
         shell: bash
