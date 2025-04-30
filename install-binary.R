@@ -22,7 +22,11 @@ if (Sys.info()["sysname"] != "Linux") {
   }
   pak::repo_add(CRAN = "https://p3m.dev/cran/__linux__/noble/latest")
   pak::repo_add(CRANbackup = "https://cloud.r-project.org")
-  pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
+  if (getRversion() < "4.3.2") {
+    pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = FALSE)
+  } else {
+    pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
+  }
 } else if (Sys.info()["machine"] == "aarch64") {
   # Linux aarch64
   pak::repo_add(CRAN = "https://cloud.r-project.org")
