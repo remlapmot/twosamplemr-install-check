@@ -23,7 +23,7 @@ if (Sys.info()["sysname"] != "Linux") {
   pak::repo_add(CRAN = "https://p3m.dev/cran/__linux__/noble/latest")
   pak::repo_add(CRANbackup = "https://cloud.r-project.org")
   if (getRversion() < "4.3.2") {
-    pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = FALSE)
+    pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = NA)
   } else {
     pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
   }
