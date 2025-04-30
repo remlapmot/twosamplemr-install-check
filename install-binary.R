@@ -15,7 +15,9 @@ if (Sys.info()["sysname"] != "Linux") {
   pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
 } else if (Sys.info()["machine"] == "x86_64") {
   # Linux x86_64
-  if (getRversion() >= '4.5.0') {
+  if (getRversion() >= '4.6.0') {
+    pak::repo_add(universe = "https://mrcieu.r-universe.dev/bin/linux/noble/4.6/")  
+  } else if (getRversion() >= '4.5.0') {
     pak::repo_add(universe = "https://mrcieu.r-universe.dev/bin/linux/noble/4.5/")
   } else if (getRversion() < '4.5.0') {
     pak::repo_add(universe = "https://mrcieu.r-universe.dev/")
