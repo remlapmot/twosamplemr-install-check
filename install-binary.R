@@ -12,26 +12,33 @@ if (Sys.info()["sysname"] != "Linux") {
   # Windows and macOS
   pak::repo_add(CRAN = "https://cloud.r-project.org")
   pak::repo_add(universe = "https://mrcieu.r-universe.dev")
-  pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
 } else if (Sys.info()["machine"] == "x86_64") {
   # Linux x86_64
   print(getRversion())
-  if ((getRversion() < '4.6.0') && (getRversion() >= '4.5.0')) {
-    pak::repo_add(universe = "https://mrcieu.r-universe.dev/bin/linux/noble/4.5/")
-  } else if ((getRversion() >= '4.6.0') || (getRversion() < '4.5.0')) {
+  if (getRversion() >= "4.6.0") {
+    pak::repo_add(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-x86_64/4.6/")
+  } else if (getRversion() == '4.5.0') {
+    pak::repo_add(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-x86_64/4.5/")
+  } else {
     pak::repo_add(universe = "https://mrcieu.r-universe.dev/")
   }
   pak::repo_add(CRAN = "https://p3m.dev/cran/__linux__/noble/latest")
   pak::repo_add(CRANbackup = "https://cloud.r-project.org")
-  if (getRversion() < "4.3.2") {
-    pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = NA)
-  } else {
-    pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
-  }
 } else if (Sys.info()["machine"] == "aarch64") {
   # Linux aarch64
   pak::repo_add(CRAN = "https://cloud.r-project.org")
-  pak::repo_add(universe = "https://mrcieu.r-universe.dev")
+  if (getRversion() >= "4.6.0") {
+    pak::repo_add(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.6/")
+  } else if (getRversion() == "4.5.0") {
+    pak::repo_add(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.5/")
+  } else {
+    pak::repo_add(universe = "https://mrcieu.r-universe.dev")
+  }
+}
+
+if (getRversion() < "4.3.2") {
+  pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = NA)
+} else {
   pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
 }
 
