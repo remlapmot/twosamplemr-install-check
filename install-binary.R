@@ -8,6 +8,17 @@ install.packages(
   )
 )
 
+# Set HTTPUserAgent so that PPPM serves binary R packages for Linux
+options(HTTPUserAgent = sprintf(
+  "R/%s R (%s)", getRversion(),
+  paste(
+    getRversion(),
+    R.version["platform"],
+    R.version["arch"],
+    R.version["os"]
+  )
+))
+
 if (Sys.info()["sysname"] != "Linux") {
   # Windows and macOS
   pak::repo_add(CRAN = "https://cloud.r-project.org")
