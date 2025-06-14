@@ -29,7 +29,7 @@ if (Sys.info()["sysname"] != "Linux") {
   print(getRversion())
   if (getRversion() >= "4.6.0") {
     pak::repo_add(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-x86_64/4.6/")
-  } else if (getRversion() == '4.5.0') {
+  } else if (getRversion() == '4.5.1') {
     pak::repo_add(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-x86_64/4.5/")
   } else {
     pak::repo_add(universe = "https://mrcieu.r-universe.dev/")
@@ -48,7 +48,7 @@ if (Sys.info()["sysname"] != "Linux") {
   # Linux aarch64
   if (getRversion() >= "4.6.0") {
     install.packages(c("TwoSampleMR", "sessioninfo"), repos = c(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.6/", CRAN = 'https://cloud.r-project.org'), dependencies = TRUE)
-  } else if (getRversion() == "4.5.0") {
+  } else if (getRversion() == "4.5.1") {
     install.packages(c("TwoSampleMR", "sessioninfo"), repos = c(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.5/", CRAN = "https://cloud.r-project.org"), dependencies = TRUE)
   }
 }
