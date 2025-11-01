@@ -19,12 +19,16 @@ options(HTTPUserAgent = sprintf(
   )
 ))
 
+# Windows and macOS
 if (Sys.info()["sysname"] != "Linux") {
   # Windows and macOS
   pak::repo_add(CRAN = "https://cloud.r-project.org")
   pak::repo_add(universe = "https://mrcieu.r-universe.dev")
   pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
-} else if (Sys.info()["machine"] == "x86_64") {
+}
+
+# Linux x86_64
+if (Sys.info()["machine"] == "x86_64") {
   # Linux x86_64
   print(getRversion())
   if (getRversion() >= "4.6.0") {
@@ -44,12 +48,16 @@ if (Sys.info()["sysname"] != "Linux") {
   } else {
     pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = NA)
   }
-} else if (Sys.info()["machine"] == "aarch64") {
+}
+
+# Linux aarch64
+if (Sys.info()["machine"] == "aarch64") {
   # Linux aarch64
   if (getRversion() >= "4.6.0") {
     install.packages(c("TwoSampleMR", "sessioninfo"), repos = c(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.6/", CRAN = 'https://cloud.r-project.org'), dependencies = TRUE)
   } else if (getRversion() < "4.6.0") {
-    install.packages(c("TwoSampleMR", "sessioninfo"), repos = c(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.5/", CRAN = "https://cloud.r-project.org"), dependencies = TRUE)
+    options(repos = c(CRAN = sprintf("https://packagemanager.posit.co/cran/latest/bin/linux/noble-%s/%s", R.version["arch"], substr(getRversion(), 1, 3)), universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.5/"))
+    install.packages(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
   }
 }
 
