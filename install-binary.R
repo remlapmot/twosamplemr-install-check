@@ -28,7 +28,7 @@ if (Sys.info()["sysname"] != "Linux") {
 }
 
 # Linux x86_64
-if (Sys.info()["machine"] == "x86_64") {
+if (Sys.info()["sysname"] == "Linux" && Sys.info()["machine"] == "x86_64") {
   # Linux x86_64
   print(getRversion())
   if (getRversion() >= "4.6.0") {
@@ -51,7 +51,7 @@ if (Sys.info()["machine"] == "x86_64") {
 }
 
 # Linux aarch64
-if (Sys.info()["machine"] == "aarch64") {
+if (Sys.info()["sysname"] == "Linux" && Sys.info()["machine"] == "aarch64") {
   # Linux aarch64
   if (getRversion() >= "4.6.0") {
     install.packages(c("TwoSampleMR", "sessioninfo"), repos = c(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.6/", CRAN = 'https://cloud.r-project.org'), dependencies = TRUE)
