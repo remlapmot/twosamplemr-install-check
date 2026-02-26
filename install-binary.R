@@ -43,7 +43,7 @@ if (Sys.info()["sysname"] == "Linux" && Sys.info()["machine"] == "x86_64") {
 
   if (getRversion() >= '4.6.0') {
     install.packages(c("TwoSampleMR", "sessioninfo"), repos = c(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-x86_64/4.6/", CRAN = "https://p3m.dev/cran/__linux__/noble/latest", CRANbackup = "https://cloud.r-project.org"), dependencies = TRUE)
-  } else if (getRversion() >= "4.3.2") {
+  } else if (getRversion() >= "4.5.0") {
     pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
   } else {
     pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = NA)
@@ -54,10 +54,13 @@ if (Sys.info()["sysname"] == "Linux" && Sys.info()["machine"] == "x86_64") {
 if (Sys.info()["sysname"] == "Linux" && Sys.info()["machine"] == "aarch64") {
   # Linux aarch64
   if (getRversion() >= "4.6.0") {
-    install.packages(c("TwoSampleMR", "sessioninfo"), repos = c(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.6/", CRAN = 'https://cloud.r-project.org'), dependencies = TRUE)
-  } else if (getRversion() < "4.6.0") {
+    install.packages(c("TwoSampleMR", "sessioninfo"), repos = c(universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.6/", CRAN = "https://cloud.r-project.org"), dependencies = TRUE)
+  } else if (getRversion() < "4.6.0" && getRversion() >= "4.5.0") {
     options(repos = c(CRAN = sprintf("https://packagemanager.posit.co/cran/latest/bin/linux/noble-%s/%s", R.version["arch"], substr(getRversion(), 1, 3)), universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.5/"))
     install.packages(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
+  } else {
+    options(repos = c(CRAN = sprintf("https://packagemanager.posit.co/cran/latest/bin/linux/noble-%s/%s", R.version["arch"], substr(getRversion(), 1, 3)), universe = "https://mrcieu.r-universe.dev/bin/linux/noble-aarch64/4.5/"))
+    install.packages(c("TwoSampleMR", "sessioninfo"), dependencies = NA)
   }
 }
 
