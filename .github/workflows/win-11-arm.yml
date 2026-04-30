@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Install R and RTools for Windows on ARM and install TwoSampleMR and run R CMD check
         run: |
+          $ErrorActionPreference = 'Stop'
+
           # Install R aarch64 4.6.0
           $url = "https://github.com/remlapmot/r-build-for-windows-on-gha/releases/download/R-4.6.0/R-4.6.0-aarch64-openblas.exe"
           Invoke-WebRequest -Uri "$url" -OutFile R-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
