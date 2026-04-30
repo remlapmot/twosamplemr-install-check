@@ -22,49 +22,45 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - name: Install R and RTools for Windows on ARM and install TwoSampleMR and run R CMD check
+      - name: Install R aarch64
         run: |
           $ErrorActionPreference = 'Stop'
-
-          # Install R aarch64 4.6.0
           $url = "https://github.com/remlapmot/r-build-for-windows-on-gha/releases/download/R-4.6.0/R-4.6.0-aarch64-openblas.exe"
           Invoke-WebRequest -Uri "$url" -OutFile R-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath R-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
+          "C:\Program Files\R-aarch64\R-4.6.0\bin" >> $env:GITHUB_PATH
 
-          # Install Rtools45
+      - name: Install Rtools45
+        run: |
+          $ErrorActionPreference = 'Stop'
           $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6768-6492.exe"
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath rtools45-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
-          
-          # Add R and Rtool45 binaries to PATH
-          $ENV:PATH = "C:\Program Files\R-aarch64\R-4.6.0\bin;C:\rtools45-aarch64\usr\bin;$ENV:PATH"
-          
-          # Install pandoc (required for building vignettes)
-          choco install pandoc --no-progress
+          "C:\rtools45-aarch64\usr\bin" >> $env:GITHUB_PATH
 
-          # Install TwoSampleMR and report session info
-          $rscript = "Rscript"
-          $arguments = "-e", "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); install.packages('sessioninfo', repos = 'https://cloud.r-project.org/'); sessioninfo::session_info(pkgs = 'installed')"
-          & $rscript $arguments
+      - name: Install pandoc
+        run: choco install pandoc --no-progress
 
-          # Install TinyTeX (required for building vignettes)
-          $args = "-e", "install.packages(c('tinytex'), repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); tinytex::tlmgr_install(c('makeindex', 'upquote', 'inconsolata'))"
-          & $rscript $args
+      - name: Install TwoSampleMR and report session info
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Rscript -e "print(R.version); install.packages('TwoSampleMR', dependencies = TRUE, repos = c('https://cloud.r-project.org/', 'https://mrcieu.r-universe.dev')); library(TwoSampleMR); install.packages('sessioninfo', repos = 'https://cloud.r-project.org/'); sessioninfo::session_info(pkgs = 'installed')"
 
-          # Add TinyTeX binaries to PATH
-          $ENV:PATH = "C:\Users\runneradmin\AppData\Roaming\TinyTeX\bin\windows;$ENV:PATH"
-          
-          # R CMD check
-          git clone https://github.com/MRCIEU/TwoSampleMR.git
+      - name: Install TinyTeX
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Rscript -e "install.packages(c('tinytex'), repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); tinytex::tlmgr_install(c('makeindex', 'upquote', 'inconsolata'))"
+          "C:\Users\runneradmin\AppData\Roaming\TinyTeX\bin\windows" >> $env:GITHUB_PATH
 
-          $rscript = "Rscript"
-          $args = "-e", "remove.packages('TwoSampleMR')"
-          & $rscript $args
-          
-          $rcmd = "Rcmd"
-          $buildargs = "build", "TwoSampleMR"
-          & $rcmd $buildargs
+      - name: Clone TwoSampleMR and remove installed version
+        run: |
+          $ErrorActionPreference = 'Stop'
+          git clone --depth 1 https://github.com/MRCIEU/TwoSampleMR.git
+          Rscript -e "remove.packages('TwoSampleMR')"
 
+      - name: R CMD check
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Rcmd build TwoSampleMR
           $tarball = Get-ChildItem -Filter "TwoSampleMR_*.tar.gz" | Select-Object -First 1 -ExpandProperty Name
-          $checkargs = "check", "--as-cran", $tarball
-          & $rcmd $checkargs
+          Rcmd check --as-cran $tarball
