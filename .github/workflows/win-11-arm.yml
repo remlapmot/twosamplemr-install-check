@@ -20,20 +20,22 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      R_VERSION: "4.6.0"
+      RTOOLS_BUILD: "rtools45-aarch64-6768-6492"
 
     steps:
       - name: Install R aarch64
         run: |
           $ErrorActionPreference = 'Stop'
-          $url = "https://github.com/remlapmot/r-build-for-windows-on-gha/releases/download/R-4.6.0/R-4.6.0-aarch64-openblas.exe"
+          $url = "https://github.com/remlapmot/r-build-for-windows-on-gha/releases/download/R-$env:R_VERSION/R-$env:R_VERSION-aarch64-openblas.exe"
           Invoke-WebRequest -Uri "$url" -OutFile R-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath R-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
-          "C:\Program Files\R-aarch64\R-4.6.0\bin" >> $env:GITHUB_PATH
+          "C:\Program Files\R-aarch64\R-$env:R_VERSION\bin" >> $env:GITHUB_PATH
 
       - name: Install Rtools45
         run: |
           $ErrorActionPreference = 'Stop'
-          $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/rtools45-aarch64-6768-6492.exe"
+          $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/$env:RTOOLS_BUILD.exe"
           Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
           Start-Process -FilePath rtools45-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
           "C:\rtools45-aarch64\usr\bin" >> $env:GITHUB_PATH
