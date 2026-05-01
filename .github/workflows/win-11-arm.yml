@@ -28,7 +28,7 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           $url = "https://github.com/remlapmot/r-build-for-windows-on-gha/releases/download/R-$env:R_VERSION/R-$env:R_VERSION-aarch64-openblas.exe"
-          Invoke-WebRequest -Uri "$url" -OutFile R-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
+          curl.exe -L -o R-aarch64.exe "$url"
           Start-Process -FilePath R-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
           "C:\Program Files\R-aarch64\R-$env:R_VERSION\bin" >> $env:GITHUB_PATH
 
@@ -36,7 +36,7 @@ jobs:
         run: |
           $ErrorActionPreference = 'Stop'
           $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/$env:RTOOLS_BUILD.exe"
-          Invoke-WebRequest -Uri "$url" -OutFile rtools45-aarch64.exe -UseBasicParsing -UserAgent "NativeHost"
+          curl.exe -L -o rtools45-aarch64.exe "$url"
           Start-Process -FilePath rtools45-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
           "C:\rtools45-aarch64\usr\bin" >> $env:GITHUB_PATH
 
