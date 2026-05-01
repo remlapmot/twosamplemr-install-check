@@ -54,6 +54,11 @@ jobs:
           Rscript -e "install.packages(c('tinytex'), repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); tinytex::tlmgr_install(c('makeindex', 'upquote', 'inconsolata', 'ae', 'parskip', 'hyperref', 'times', 'cm-super', 'tex-gyre'))"
           "C:\Users\runneradmin\AppData\Roaming\TinyTeX\bin\windows" >> $env:GITHUB_PATH
 
+      - name: Install V8 from source
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Rscript -e "tryCatch(install.packages('V8', repos = 'https://cloud.r-project.org/', type = 'source'), error = function(e) message('V8 installation failed: ', e$message))"
+
       - name: Clone TwoSampleMR and remove installed version
         run: |
           $ErrorActionPreference = 'Stop'
