@@ -51,7 +51,7 @@ jobs:
       - name: Install TinyTeX
         run: |
           $ErrorActionPreference = 'Stop'
-          Rscript -e "install.packages(c('tinytex'), repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); tinytex::tlmgr_install(c('makeindex', 'upquote', 'inconsolata'))"
+          Rscript -e "install.packages(c('tinytex'), repos = 'https://cloud.r-project.org/'); tinytex::install_tinytex(); tinytex::tlmgr_install(c('makeindex', 'upquote', 'inconsolata', 'ae', 'parskip', 'hyperref', 'times', 'cm-super', 'tex-gyre'))"
           "C:\Users\runneradmin\AppData\Roaming\TinyTeX\bin\windows" >> $env:GITHUB_PATH
 
       - name: Clone TwoSampleMR and remove installed version
