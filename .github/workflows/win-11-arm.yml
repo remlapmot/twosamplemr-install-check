@@ -71,3 +71,7 @@ jobs:
           Rcmd build TwoSampleMR
           $tarball = Get-ChildItem -Filter "TwoSampleMR_*.tar.gz" | Select-Object -First 1 -ExpandProperty Name
           Rcmd check --as-cran $tarball
+
+      - name: Show LaTeX log
+        if: always()
+        run: Get-Content TwoSampleMR.Rcheck\TwoSampleMR-manual.log -ErrorAction SilentlyContinue
