@@ -70,7 +70,6 @@ jobs:
           $makeindex = Get-Command makeindex -ErrorAction SilentlyContinue
           if ($makeindex) {
             Write-Host "makeindex found at: $($makeindex.Source)"
-            makeindex --version
           } else {
             Write-Host "makeindex NOT found in PATH"
           }
