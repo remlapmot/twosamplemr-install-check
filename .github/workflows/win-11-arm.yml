@@ -35,7 +35,7 @@ jobs:
       - name: Install Rtools45
         run: |
           $ErrorActionPreference = 'Stop'
-          $url = "https://cran.r-project.org/bin/windows/Rtools/rtools45/files/$env:RTOOLS_BUILD.exe"
+          $url = "https://github.com/r-hub/rtools45/releases/download/latest/rtools45-aarch64.exe"
           curl.exe -L -o rtools45-aarch64.exe "$url"
           Start-Process -FilePath rtools45-aarch64.exe -ArgumentList "/install /norestart /verysilent /SUPPRESSMSGBOXES" -NoNewWindow -Wait
           "C:\rtools45-aarch64\usr\bin" >> $env:GITHUB_PATH
