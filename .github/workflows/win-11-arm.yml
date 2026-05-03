@@ -65,13 +65,27 @@ jobs:
           git clone --depth 1 https://github.com/MRCIEU/TwoSampleMR.git
           Rscript -e "remove.packages('TwoSampleMR')"
 
+      - name: Check makeindex
+        run: |
+          $makeindex = Get-Command makeindex -ErrorAction SilentlyContinue
+          if ($makeindex) {
+            Write-Host "makeindex found at: $($makeindex.Source)"
+            makeindex --version
+          } else {
+            Write-Host "makeindex NOT found in PATH"
+          }
+
       - name: R CMD check
+        env:
+          R_MAKEINDEX: C:\Users\runneradmin\AppData\Roaming\TinyTeX\bin\windows\makeindex.exe
         run: |
           $ErrorActionPreference = 'Stop'
           Rcmd build TwoSampleMR
           $tarball = Get-ChildItem -Filter "TwoSampleMR_*.tar.gz" | Select-Object -First 1 -ExpandProperty Name
-          Rcmd check --as-cran --no-manual $tarball
+          Rcmd check --as-cran $tarball
 
-      - name: Show LaTeX log
+      - name: Show check and LaTeX logs
         if: always()
-        run: Get-Content TwoSampleMR.Rcheck\TwoSampleMR-manual.log -ErrorAction SilentlyContinue
+        run: |
+          Get-Content TwoSampleMR.Rcheck\00check.log -ErrorAction SilentlyContinue
+          Get-Content TwoSampleMR.Rcheck\TwoSampleMR-manual.log -ErrorAction SilentlyContinue
