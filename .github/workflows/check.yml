@@ -61,6 +61,10 @@ jobs:
       - name: Set pak options
         shell: bash
         run: echo 'options(pkg.sysreqs_db_update_timeout = as.difftime(180, units = "secs"))' >> ~/.Rprofile
-          
+
+      - name: Install system deps (source-build fallback)
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+
       - name: Check TwoSampleMR binary installation
         run: Rscript install-binary.R
