@@ -22,7 +22,12 @@ options(HTTPUserAgent = sprintf(
 # Windows and macOS
 if (Sys.info()["sysname"] != "Linux") {
   # Windows and macOS
-  pak::repo_add(CRAN = "https://cloud.r-project.org")
+  if (Sys.info()["sysname"] == "Windows" && R.version$arch == "aarch64") {
+    # Windows aarch64, CRAN does not build arm64 Windows binaries
+    pak::repo_add(CRAN = "https://cran.r-universe.dev")
+  } else {
+    pak::repo_add(CRAN = "https://cloud.r-project.org")
+  }
   pak::repo_add(universe = "https://mrcieu.r-universe.dev")
   pak::pkg_install(c("TwoSampleMR", "sessioninfo"), dependencies = TRUE)
 }
